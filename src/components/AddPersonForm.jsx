@@ -23,7 +23,7 @@ class AddPersonForm extends Component {
 
   async componentDidMount() {
     this.setState({
-      groups: await groupService.getGroupsOptions(),
+      groups: await groupService.getGroupOptions(),
       isLoading: false,
     });
   }
