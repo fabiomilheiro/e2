@@ -7,7 +7,7 @@ class NavBarSearchForm extends Component {
   state = {
     groups: [],
     exactSearch: false,
-    terms: "",
+    name: "",
     groupId: "",
   };
 
@@ -20,7 +20,7 @@ class NavBarSearchForm extends Component {
 
     this.setState({
       exactSearch: parsed.exactSearch,
-      terms: parsed.terms,
+      name: parsed.name,
       groupId: parsed.groupId,
     });
   }
@@ -38,8 +38,8 @@ class NavBarSearchForm extends Component {
         <Input
           className="prompt"
           placeholder="Search persons..."
-          value={this.state.terms}
-          onChange={(e, data) => this.setState({ terms: data.value })}
+          value={this.state.name}
+          onChange={(e, data) => this.setState({ name: data.value })}
         />
         <Select
           className="prompt"
@@ -65,9 +65,9 @@ class NavBarSearchForm extends Component {
   };
 
   goToSearch = () => {
-    const { exactSearch, terms, groupId } = this.state;
+    const { exactSearch, name, groupId } = this.state;
     this.props.history.push(
-      `/persons?exactSearch=${exactSearch}&terms=${terms}&groupId=${groupId}`
+      `/persons?exactSearch=${exactSearch}&name=${name}&groupId=${groupId}`
     );
   };
 }

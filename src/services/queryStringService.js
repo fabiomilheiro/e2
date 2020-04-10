@@ -1,11 +1,11 @@
 import queryString from "query-string";
 
 function parse(locationSearch) {
-  var { exactSearch, terms, groupId } = queryString.parse(locationSearch);
+  var { exactSearch, name, groupId } = queryString.parse(locationSearch);
 
   return {
     exactSearch: exactSearch === "true" ? true : false,
-    terms: terms,
+    name: name || "",
     groupId: parseInt(groupId),
   };
 }

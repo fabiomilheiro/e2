@@ -20,8 +20,10 @@ describe("PersonService.GetPersons", () => {
     },
   ];
   beforeEach(() => {
+    http.get = jest.fn();
     http.get.mockImplementation((url) => {
-      if (url !== `${config.apiBaseUrl}/persons`) {
+      debugger;
+      if (!url.startsWith(`${config.apiBaseUrl}/persons`)) {
         return null;
       }
 
@@ -29,10 +31,28 @@ describe("PersonService.GetPersons", () => {
     });
   });
 
-  test("Returns persons", async () => {
+  test("Returns all persons if no criteria", async () => {
     const response = await personService.getPersons();
 
     expect(response).toEqual(persons);
+  });
+
+  test("Filters by group", async () => {
+    await personService.getPersons({ groupId: 999 });
+
+    expect(http.get.mock.calls[0][0]).toContain("?groupId=999");
+  });
+
+  test("Filters by exact name", async () => {
+    await personService.getPersons({ name: "john", exactSearch: true });
+
+    expect(http.get.mock.calls[0][0]).toContain("?exactName=john");
+  });
+
+  test("Filters by partial name", async () => {
+    await personService.getPersons({ name: "john", exactSearch: false });
+
+    expect(http.get.mock.calls[0][0]).toContain("?partialName=john");
   });
 });
 
