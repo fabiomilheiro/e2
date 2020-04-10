@@ -38,7 +38,7 @@ class Persons extends Component {
           <Route
             path="/persons/add"
             render={(props) => (
-              <AddPerson
+              <AddPersonForm
                 {...props}
                 onPersonAdd={(person) => this.handleNewPerson(person)}
               />
