@@ -13,7 +13,6 @@ import "react-toastify/dist/ReactToastify.min.css";
 function App() {
   return (
     <>
-      <ToastContainer />
       <NavBar />
       <Container>
         <Switch>
@@ -24,6 +23,7 @@ function App() {
           <Redirect to="/not-found" />
         </Switch>
       </Container>
+      <ToastContainer />
     </>
   );
 }

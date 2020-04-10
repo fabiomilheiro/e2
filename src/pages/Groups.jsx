@@ -18,11 +18,21 @@ class Groups extends Component {
 
   render() {
     if (this.state.isLoading) {
-      return <LoadingTable />;
+      return (
+        <>
+          <h1>Groups</h1>
+          <LoadingTable />
+        </>
+      );
     }
 
     if (!this.state.groups) {
-      return <ErrorMessage text="Could not load the groups." />;
+      return (
+        <>
+          <h1>Groups</h1>
+          <ErrorMessage text="Could not load the groups." />
+        </>
+      );
     }
 
     return this.renderGroups();

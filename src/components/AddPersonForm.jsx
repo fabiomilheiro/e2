@@ -21,17 +21,9 @@ class AddPersonForm extends Component {
     isLoading: true,
   };
 
-  static emptyOption = { key: "", value: "", text: "" };
-
   async componentDidMount() {
-    const groups = await groupService.getGroups();
-    const groupOptions = groups.map((g) => ({
-      key: g.id,
-      value: g.id,
-      text: g.name,
-    }));
     this.setState({
-      groups: [AddPersonForm.emptyOption, ...groupOptions],
+      groups: await groupService.getGroupsOptions(),
       isLoading: false,
     });
   }

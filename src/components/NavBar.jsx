@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Menu } from "semantic-ui-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Switch, Route } from "react-router-dom";
+import NavBarSearchForm from "./NavBarSearchForm";
 
 class NavBar extends Component {
   render() {
@@ -17,6 +18,13 @@ class NavBar extends Component {
         <Menu.Item as={NavLink} to="/groups">
           Groups
         </Menu.Item>
+        <Menu.Menu position="right">
+          <div className="ui right item">
+            <Switch>
+              <Route path="/" component={NavBarSearchForm} />
+            </Switch>
+          </div>
+        </Menu.Menu>
       </Menu>
     );
   }

@@ -20,11 +20,21 @@ class Persons extends Component {
 
   render() {
     if (this.state.isLoading) {
-      return <LoadingTable />;
+      return (
+        <>
+          <h1>Persons</h1>
+          <LoadingTable />
+        </>
+      );
     }
 
     if (!this.state.persons) {
-      return <ErrorMessage text="Could not load the persons." />;
+      return (
+        <>
+          <h1>Persons</h1>
+          <ErrorMessage text="Could not load the persons." />
+        </>
+      );
     }
 
     return this.renderPersons();
