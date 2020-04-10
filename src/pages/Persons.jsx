@@ -35,7 +35,16 @@ class Persons extends Component {
       <>
         <h1>Persons</h1>
         <Switch>
-          <Route path="/persons/add" component={AddPerson} exact />
+          <Route
+            path="/persons/add"
+            render={(props) => (
+              <AddPerson
+                {...props}
+                onPersonAdd={(person) => this.handleNewPerson(person)}
+              />
+            )}
+            exact
+          />
           <Route
             path="/"
             render={() => (
@@ -64,6 +73,11 @@ class Persons extends Component {
         </Table>
       </>
     );
+  };
+
+  handleNewPerson = (person) => {
+    const persons = [...this.state.persons, person];
+    this.setState({ persons });
   };
 }
 
