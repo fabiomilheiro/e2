@@ -3,10 +3,7 @@ import { Menu } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 
 class NavBar extends Component {
-  state = {};
   render() {
-    const activeItem = "features";
-
     return (
       <Menu stackable>
         <Menu.Item>
