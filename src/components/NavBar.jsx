@@ -10,11 +10,11 @@ class NavBar extends Component {
           <img src="https://react.semantic-ui.com/logo.png" alt="Logo" />
         </Menu.Item>
 
-        <Menu.Item as={NavLink} to="/persons" exact>
+        <Menu.Item as={NavLink} to="/persons">
           Persons
         </Menu.Item>
 
-        <Menu.Item as={NavLink} to="/groups" exact>
+        <Menu.Item as={NavLink} to="/groups">
           Groups
         </Menu.Item>
       </Menu>

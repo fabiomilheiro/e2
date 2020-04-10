@@ -3,6 +3,8 @@ import personService from "../services/personService";
 import { Table } from "semantic-ui-react";
 import ErrorMessage from "../components/ErrorMessage";
 import LoadingTable from "./../components/LoadingTable";
+import { Link, Switch, Route } from "react-router-dom";
+import AddPerson from "../components/AddPerson";
 
 class Persons extends Component {
   state = { isLoading: true };
@@ -32,6 +34,17 @@ class Persons extends Component {
     return (
       <>
         <h1>Persons</h1>
+        <Switch>
+          <Route path="/persons/add" component={AddPerson} exact />
+          <Route
+            path="/"
+            render={() => (
+              <p>
+                <Link to="/persons/add">New person</Link>
+              </p>
+            )}
+          />
+        </Switch>
         <Table celled>
           <Table.Header>
             <Table.Row>
