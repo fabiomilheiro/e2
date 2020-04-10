@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Input, Button, Checkbox, Select } from "semantic-ui-react";
 import groupService from "../services/groupService";
-import queryString from "query-string";
+import queryStringService from "../services/queryStringService";
 
 class NavBarSearchForm extends Component {
   state = {
@@ -12,18 +12,16 @@ class NavBarSearchForm extends Component {
   };
 
   async componentDidMount() {
-    var { exactSearch, terms, groupId } = queryString.parse(
-      this.props.location.search
-    );
+    const parsed = queryStringService.parse(this.props.location.search);
 
-    if (groupId) {
+    if (parsed.groupId) {
       await this.loadGroups();
     }
 
     this.setState({
-      exactSearch: exactSearch === "true" ? true : false,
-      terms: terms,
-      groupId: parseInt(groupId),
+      exactSearch: parsed.exactSearch,
+      terms: parsed.terms,
+      groupId: parsed.groupId,
     });
   }
 
