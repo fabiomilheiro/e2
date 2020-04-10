@@ -7,10 +7,13 @@ import NotFound from "./pages/NotFound";
 import Persons from "./pages/Persons";
 import Groups from "./pages/Groups";
 import { Container } from "semantic-ui-react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 function App() {
   return (
     <>
+      <ToastContainer />
       <NavBar />
       <Container>
         <Switch>
