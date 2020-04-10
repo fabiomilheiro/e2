@@ -13,7 +13,7 @@ import groupService from "../services/groupService";
 import personService from "../services/personService";
 import { toast } from "react-toastify";
 
-class AddPerson extends Component {
+class AddPersonForm extends Component {
   state = {
     name: "",
     groupId: "",
@@ -31,7 +31,7 @@ class AddPerson extends Component {
       text: g.name,
     }));
     this.setState({
-      groups: [AddPerson.emptyOption, ...groupOptions],
+      groups: [AddPersonForm.emptyOption, ...groupOptions],
       isLoading: false,
     });
   }
@@ -87,4 +87,4 @@ class AddPerson extends Component {
   };
 }
 
-export default AddPerson;
+export default AddPersonForm;

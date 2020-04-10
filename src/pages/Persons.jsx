@@ -4,7 +4,7 @@ import { Table } from "semantic-ui-react";
 import ErrorMessage from "../components/ErrorMessage";
 import LoadingTable from "./../components/LoadingTable";
 import { Link, Switch, Route } from "react-router-dom";
-import AddPerson from "../components/AddPerson";
+import AddPersonForm from "../components/AddPersonForm";
 
 class Persons extends Component {
   state = { isLoading: true };
