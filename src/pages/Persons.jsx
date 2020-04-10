@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 import personService from "../services/personService";
-import {
-  Table,
-  Segment,
-  Grid,
-  Placeholder,
-  Message,
-  Icon,
-} from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
+import ErrorMessage from "../components/ErrorMessage";
+import LoadingTable from "./../components/LoadingTable";
 
 class Persons extends Component {
   state = { isLoading: true };
@@ -23,74 +18,38 @@ class Persons extends Component {
 
   render() {
     if (this.state.isLoading) {
-      return this.renderLoadingState();
+      return <LoadingTable />;
     }
 
-    if (this.state.persons) {
-      return this.renderTable();
+    if (!this.state.persons) {
+      return <ErrorMessage text="Could not load the persons." />;
     }
 
-    return this.renderFailure();
+    return this.renderPersons();
   }
 
-  renderTable = () => {
+  renderPersons = () => {
     return (
-      <Table celled>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Name</Table.HeaderCell>
-            <Table.HeaderCell>Group</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          {this.state.persons.map((person) => (
-            <Table.Row key={person.id}>
-              <Table.Cell>{person.name}</Table.Cell>
-              <Table.Cell>{person.groupName}</Table.Cell>
+      <>
+        <h1>Persons</h1>
+        <Table celled>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Name</Table.HeaderCell>
+              <Table.HeaderCell>Group</Table.HeaderCell>
             </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
-    );
-  };
+          </Table.Header>
 
-  renderLoadingState = () => {
-    return (
-      <Segment raised>
-        {Array.from(Array(3)).map((item, id) => {
-          return (
-            <Grid key={id} columns={2}>
-              <Grid.Column>
-                <Placeholder>
-                  <Placeholder.Header image>
-                    <Placeholder.Line length="long" />
-                    <Placeholder.Line />
-                  </Placeholder.Header>
-                </Placeholder>
-              </Grid.Column>
-              <Grid.Column>
-                <Placeholder>
-                  <Placeholder.Paragraph>
-                    <Placeholder.Line />
-                  </Placeholder.Paragraph>
-                </Placeholder>
-              </Grid.Column>
-            </Grid>
-          );
-        })}
-      </Segment>
-    );
-  };
-
-  renderFailure = () => {
-    return (
-      <Message negative icon>
-        <Icon name="frown outline notched" />
-        <Message.Content>
-          <Message.Header>Could not load the persons table.</Message.Header>
-        </Message.Content>
-      </Message>
+          <Table.Body>
+            {this.state.persons.map((person) => (
+              <Table.Row key={person.id}>
+                <Table.Cell>{person.name}</Table.Cell>
+                <Table.Cell>{person.groupName}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      </>
     );
   };
 }
