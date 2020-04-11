@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Input, Button, Checkbox, Select } from "semantic-ui-react";
 import groupService from "../services/groupService";
-import queryStringService from "../services/queryStringService";
+import routeParser from "../services/routeParser";
 
 class NavBarSearchForm extends Component {
   state = {
@@ -12,7 +12,9 @@ class NavBarSearchForm extends Component {
   };
 
   async componentDidMount() {
-    const parsed = queryStringService.parse(this.props.location.search);
+    const parsed = routeParser.parsePersonSearchRouteParameters(
+      this.props.match.params
+    );
 
     if (parsed.groupId) {
       await this.loadGroups();
@@ -66,9 +68,7 @@ class NavBarSearchForm extends Component {
 
   goToSearch = () => {
     const { exactSearch, name, groupId } = this.state;
-    this.props.history.push(
-      `/persons?exactSearch=${exactSearch}&name=${name}&groupId=${groupId}`
-    );
+    this.props.history.push(`/persons/${name}/${exactSearch}/${groupId}`);
   };
 }
 

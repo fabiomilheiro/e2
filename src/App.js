@@ -16,6 +16,10 @@ function App() {
       <NavBar />
       <Container>
         <Switch>
+          <Route
+            path="/persons/:name?/:exactSearch?/:groupId?"
+            component={Persons}
+          />
           <Route path="/persons" component={Persons} />
           <Route path="/groups" component={Groups} />
           <Route path="/not-found" component={NotFound} />

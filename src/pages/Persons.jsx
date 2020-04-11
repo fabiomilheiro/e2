@@ -5,32 +5,32 @@ import ErrorMessage from "../components/ErrorMessage";
 import LoadingTable from "./../components/LoadingTable";
 import { Link, Switch, Route } from "react-router-dom";
 import AddPersonForm from "../components/AddPersonForm";
-import queryStringService from "../services/queryStringService";
+import routeParser from "../services/routeParser";
 
 class Persons extends Component {
   state = { isLoading: true };
 
   async componentDidMount() {
-    console.log("componentDidMount");
-    try {
-      // TODO: Must detect changes in the query string or put them in the URL in a different shape.
-      // 1. Put filters in a context.
-      // 2. Deliver search criteria via a route parameter e.g. /persons/
-      const criteria = queryStringService.parse(this.props.location.search);
-      const persons = await personService.getPersons(criteria);
-      this.setState({ persons, isLoading: false });
-    } catch (error) {
-      this.setState({ isLoading: false });
+    await this.loadPersons();
+  }
+
+  async componentDidUpdate(previousProps) {
+    const {
+      exactSearch: previousExactSearch,
+      name: previousName,
+      groupId: previousGroupId,
+    } = previousProps.match.params;
+    const params = this.props.match.params;
+
+    if (
+      previousExactSearch === params.exactSearch &&
+      previousName === params.name &&
+      previousGroupId === params.groupId
+    ) {
+      return;
     }
-  }
 
-  componentWillUpdate(props) {
-    console.log("Persons.componentWillUpdate", props.location);
-  }
-
-  shouldComponentUpdate() {
-    console.log("Persons.shouldComponentUpdate");
-    return true;
+    await this.loadPersons();
   }
 
   render() {
@@ -103,6 +103,22 @@ class Persons extends Component {
   handleNewPerson = (person) => {
     const persons = [...this.state.persons, person];
     this.setState({ persons });
+  };
+
+  loadPersons = async () => {
+    try {
+      // TODO: Must detect changes in the query string or put them in the URL in a different shape.
+      // 1. Put filters in a context.
+      // 2. Deliver search criteria via a route parameter e.g. /persons/
+      const criteria = routeParser.parsePersonSearchRouteParameters(
+        this.props.match.params
+      );
+
+      const persons = await personService.getPersons(criteria);
+      this.setState({ persons, isLoading: false });
+    } catch (error) {
+      this.setState({ isLoading: false });
+    }
   };
 }
 
