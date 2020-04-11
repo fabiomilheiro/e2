@@ -17,7 +17,7 @@ function App() {
       <Container>
         <Switch>
           <Route
-            path="/persons/:name?/:exactSearch?/:groupId?"
+            path="/persons/search:name?/:exactSearch?/:groupId?"
             component={Persons}
           />
           <Route path="/persons" component={Persons} />

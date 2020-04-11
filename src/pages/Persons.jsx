@@ -107,9 +107,6 @@ class Persons extends Component {
 
   loadPersons = async () => {
     try {
-      // TODO: Must detect changes in the query string or put them in the URL in a different shape.
-      // 1. Put filters in a context.
-      // 2. Deliver search criteria via a route parameter e.g. /persons/
       const criteria = routeParser.parsePersonSearchRouteParameters(
         this.props.match.params
       );

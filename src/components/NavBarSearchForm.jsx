@@ -68,7 +68,7 @@ class NavBarSearchForm extends Component {
 
   goToSearch = () => {
     const { exactSearch, name, groupId } = this.state;
-    this.props.history.push(`/persons/${name}/${exactSearch}/${groupId}`);
+    this.props.history.push(`/persons/search${name}/${exactSearch}/${groupId}`);
   };
 }
 
