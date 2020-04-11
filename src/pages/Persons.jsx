@@ -5,17 +5,32 @@ import ErrorMessage from "../components/ErrorMessage";
 import LoadingTable from "./../components/LoadingTable";
 import { Link, Switch, Route } from "react-router-dom";
 import AddPersonForm from "../components/AddPersonForm";
+import queryStringService from "../services/queryStringService";
 
 class Persons extends Component {
   state = { isLoading: true };
 
   async componentDidMount() {
+    console.log("componentDidMount");
     try {
-      var persons = await personService.getPersons();
+      // TODO: Must detect changes in the query string or put them in the URL in a different shape.
+      // 1. Put filters in a context.
+      // 2. Deliver search criteria via a route parameter e.g. /persons/
+      const criteria = queryStringService.parse(this.props.location.search);
+      const persons = await personService.getPersons(criteria);
       this.setState({ persons, isLoading: false });
     } catch (error) {
       this.setState({ isLoading: false });
     }
+  }
+
+  componentWillUpdate(props) {
+    console.log("Persons.componentWillUpdate", props.location);
+  }
+
+  shouldComponentUpdate() {
+    console.log("Persons.shouldComponentUpdate");
+    return true;
   }
 
   render() {
