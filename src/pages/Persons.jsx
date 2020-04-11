@@ -15,18 +15,7 @@ class Persons extends Component {
   }
 
   async componentDidUpdate(previousProps) {
-    const {
-      exactSearch: previousExactSearch,
-      name: previousName,
-      groupId: previousGroupId,
-    } = previousProps.match.params;
-    const params = this.props.match.params;
-
-    if (
-      previousExactSearch === params.exactSearch &&
-      previousName === params.name &&
-      previousGroupId === params.groupId
-    ) {
+    if (this.shouldReloadPersons(previousProps)) {
       return;
     }
 
@@ -59,44 +48,56 @@ class Persons extends Component {
     return (
       <>
         <h1>Persons</h1>
-        <Switch>
-          <Route
-            path="/persons/add"
-            render={(props) => (
-              <AddPersonForm
-                {...props}
-                onPersonAdd={(person) => this.handleNewPerson(person)}
-              />
-            )}
-            exact
-          />
-          <Route
-            path="/"
-            render={() => (
-              <p>
-                <Link to="/persons/add">New person</Link>
-              </p>
-            )}
-          />
-        </Switch>
-        <Table celled>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Name</Table.HeaderCell>
-              <Table.HeaderCell>Group</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-
-          <Table.Body>
-            {this.state.persons.map((person) => (
-              <Table.Row key={person.id}>
-                <Table.Cell>{person.name}</Table.Cell>
-                <Table.Cell>{person.groupName}</Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
+        {this.renderAddPerson()}
+        {this.renderPersonsTable()}
       </>
+    );
+  };
+
+  renderAddPerson = () => {
+    return (
+      <Switch>
+        <Route
+          path="/persons/add"
+          render={(props) => (
+            <AddPersonForm
+              {...props}
+              onPersonAdd={(person) => this.handleNewPerson(person)}
+            />
+          )}
+          exact
+        />
+        <Route
+          path="/"
+          render={() => (
+            <p>
+              <Link to="/persons/add">New person</Link>
+            </p>
+          )}
+        />
+      </Switch>
+    );
+  };
+
+  renderPersonsTable = () => {
+    return (
+      <Table celled>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Name</Table.HeaderCell>
+            <Table.HeaderCell>Group</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+
+        <Table.Body>
+          {this.state.persons.map((person) => (
+            <Table.Row key={person.id}>
+              <Table.Cell>{person.name}</Table.Cell>
+              <Table.Cell>{person.groupName}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
     );
   };
 
@@ -116,6 +117,21 @@ class Persons extends Component {
     } catch (error) {
       this.setState({ isLoading: false });
     }
+  };
+
+  shouldReloadPersons = (previousProps) => {
+    const {
+      exactSearch: previousExactSearch,
+      name: previousName,
+      groupId: previousGroupId,
+    } = previousProps.match.params;
+    const params = this.props.match.params;
+
+    return (
+      previousExactSearch === params.exactSearch &&
+      previousName === params.name &&
+      previousGroupId === params.groupId
+    );
   };
 }
 
