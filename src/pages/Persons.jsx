@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import personService from "../services/personService";
 import { Table } from "semantic-ui-react";
 import ErrorMessage from "../components/ErrorMessage";
-import LoadingTable from "./../components/LoadingTable";
+import LoadingTable from "../components/LoadingTable/LoadingTable";
 import { Link, Switch, Route } from "react-router-dom";
 import AddPersonForm from "../components/AddPersonForm";
 import routeParser from "../services/routeParser";

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Table } from "semantic-ui-react";
-import LoadingTable from "./../components/LoadingTable";
+import LoadingTable from "./../components/LoadingTable/LoadingTable";
 import ErrorMessage from "./../components/ErrorMessage";
 import groupService from "../services/groupService";
 
